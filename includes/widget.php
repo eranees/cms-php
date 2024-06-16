@@ -18,7 +18,7 @@
           <h5 class="card-title"><?php echo $post_title; ?></h5>
           <p class="card-text">
             <?php
-            if (strlen($post_content) > 20) {
+            if (strlen($post_content) > 50) {
               echo substr($post_content, 0, 20) . '...';
             } else {
               echo $post_content;

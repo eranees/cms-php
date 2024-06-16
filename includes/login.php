@@ -3,6 +3,8 @@
 <?php session_start(); ?>
 
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -17,24 +19,22 @@ if (isset($_POST['login'])) {
         die("QUERY FAILED " . mysqli_error($connection));
     }
 
-    while ($row = mysqli_fetch_assoc($login_user_query)) {
-        $db_user_id = $row['user_id'];
-        $db_username = $row['username'];
-        $db_user_firstname = $row['user_firstname'];
-        $db_user_lastname = $row['user_lastname'];
-        $db_user_password = $row['user_password'];
-        $db_user_role = $row['user_role'];
-    }
+    $row = mysqli_fetch_assoc($login_user_query);
+    $db_user_id = $row['user_id'];
+    $db_username = $row['username'];
+    $db_user_firstname = $row['user_firstname'];
+    $db_user_lastname = $row['user_lastname'];
+    $db_user_password = $row['user_password'];
+    $db_user_role = $row['user_role'];
 
     if (password_verify($password, $db_user_password)) {
         $_SESSION['username'] = $db_username;
         $_SESSION['user_firstname'] = $db_user_firstname;
         $_SESSION['user_lastname'] = $db_user_lastname;
         $_SESSION['user_role'] = $db_user_role;
-
         header("location: userverify.php");
     } else {
-        header("location: ../index.php");
+        header("location: ../login.php");
     }
 }
 

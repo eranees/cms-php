@@ -7,7 +7,7 @@
     $query = "SELECT * FROM posts";
     $select_all_posts_query = mysqli_query($connection, $query);
     ?>
-    <table class="table table-hover table-dark table-bordered">
+    <table class="table table-responsive table-hover table-dark table-bordered">
         <thead>
             <tr>
                 <th scope="col">S.No.</th>
@@ -23,11 +23,11 @@
         </thead>
         <tbody>
 
-            <? if (mysqli_num_rows($select_all_posts_query) <= 0) : ?>
+            <?php if (!mysqli_num_rows($select_all_posts_query)) : ?>
                 <tr>
                     <td colspan="9">No posts yet</td>
                 </tr>
-            <? endif; ?>
+            <?php endif; ?>
             <?php
             while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
                 $post_id = $row['post_id'];
@@ -55,13 +55,14 @@
 
                 echo "<td>$post_status</td>";
                 $image = imagePlaceholder($post_image);
-                echo "<td><img width='100' class='img-fluid' src='../images/$image' alt='img'></td>";
+                echo "<td><img width='20' class='img-fluid' src='../images/$image' alt='img'></td>";
 
                 $query = "SELECT * FROM comments WHERE comment_post_id = {$post_id}";
                 $send_comment_query = mysqli_query($connection, $query);
-
-                $row = mysqli_fetch_array($send_comment_query);
-                $comment_id = $row['comment_id'];
+                if (mysqli_num_rows($send_comment_query) > 0) {
+                    $row = mysqli_fetch_array($send_comment_query);
+                    $comment_id = $row['comment_id'];
+                }
                 $count_comment = mysqli_num_rows($send_comment_query);
 
                 echo "<td><a href='post_comment.php?id={$post_id}'>$count_comment</a></td>";

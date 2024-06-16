@@ -7,7 +7,7 @@
     $query = "SELECT * FROM users WHERE username <> 'admin'";
     $select_all_users_query = mysqli_query($connection, $query);
     ?>
-    <table class="table table-hover table-dark table-bordered">
+    <table class="table table-responsive table-hover table-dark table-bordered">
         <thead>
             <tr>
                 <th scope="col">S.No.</th>
@@ -22,11 +22,11 @@
             </tr>
         </thead>
         <tbody>
-            <? if (mysqli_num_rows($select_all_users_query) <= 0) : ?>
+            <?php if (!mysqli_num_rows($select_all_users_query)) : ?>
                 <tr>
                     <td colspan="9">No user has registered yet</td>
                 </tr>
-            <? endif; ?>
+            <?php endif; ?>
             <?php
             while ($row = mysqli_fetch_assoc($select_all_users_query)) {
                 $user_id = $row['user_id'];
