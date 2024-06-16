@@ -1,3 +1,7 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
 <?php include "includes/header.php" ?>
 
 <!-- Navbar -->
@@ -5,38 +9,36 @@
 
 <div id="wrapper">
 
-<!-- Sidebar -->
-<?php include "includes/sidebar.php" ?>
+  <!-- Sidebar -->
+  <?php include "includes/sidebar.php" ?>
 
-<div id="content-wrapper">
+  <div id="content-wrapper">
 
     <div class="container-fluid">
-        <!-- Page Content -->
-        <?php
+      <!-- Page Content -->
+      <?php
 
-        if(isset($_GET['source'])){
-          $source = $_GET['source'];
-        
-        }
-        else{
-          $source ='';
-        }
+      if (isset($_GET['source'])) {
+        $source = $_GET['source'];
+      } else {
+        $source = '';
+      }
 
-        switch($source){
-          case 'add_post';
-          include "includes/add_post.php" ;    
+      switch ($source) {
+        case 'add_post';
+          include "includes/add_post.php";
           break;
-        
-          default:
-          include "includes/view_all_posts.php" ;
+
+        default:
+          include "includes/view_all_posts.php";
           break;
-        }
-        ?>
+      }
+      ?>
     </div>
     <!-- /.container-fluid -->
 
-</div>
-<!-- /.content-wrapper -->
+  </div>
+  <!-- /.content-wrapper -->
 
 </div>
 <!-- /#wrapper -->
